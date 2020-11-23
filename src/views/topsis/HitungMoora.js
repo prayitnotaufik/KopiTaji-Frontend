@@ -1,55 +1,9 @@
-import {
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CModalFooter,
-  CButton,
-  CCard,
-  CCardBody,
-  CCol,
-  CCardHeader,
-  CDataTable,
-  CForm,
-  CFormGroup,
-  CFormText,
-  CValidFeedback,
-  CInvalidFeedback,
-  CTextarea,
-  CInput,
-  CInputFile,
-  CInputCheckbox,
-  CInputRadio,
-  CInputGroup,
-  CInputGroupAppend,
-  CInputGroupPrepend,
-  CDropdown,
-  CInputGroupText,
-  CLabel,
-  CSelect,
-  CRow,
-  CSwitch,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CDataTable } from "@coreui/react";
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import props from "prop-types";
-
-import React, { useState, Component, useEffect } from "react";
-import { DocsLink } from "src/reusable";
-import {
-  TopsisData,
-  Normalisasi,
-  NormalisasiBobot,
-  Ideal,
-  JarakAlternatif,
-} from "../users/TopsisData";
-
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import usersData from "../users/TopsisData";
 
 const HitungMoora = (props) => {
-  const { buttonLabel, className } = props;
-
   const [alter, setAlterName] = useState([]);
   const [normalized, mooraNormalized] = useState([]);
   const [optimized, optimationWeight] = useState([]);
@@ -58,7 +12,6 @@ const HitungMoora = (props) => {
   useEffect(() => {
     getAlterName();
     checkData();
-    console.log(yi);
   }, [alter]);
 
   const checkData = async () => {

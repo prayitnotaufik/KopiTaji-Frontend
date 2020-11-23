@@ -1,9 +1,4 @@
 import {
-  CModal,
-  CModalBody,
-  CModalHeader,
-  CModalTitle,
-  CModalFooter,
   CButton,
   CCard,
   CCardBody,
@@ -13,39 +8,14 @@ import {
   CForm,
   CFormGroup,
   CFormText,
-  CValidFeedback,
-  CInvalidFeedback,
-  CTextarea,
   CInput,
-  CInputFile,
-  CInputCheckbox,
-  CInputRadio,
-  CInputGroup,
-  CInputGroupAppend,
-  CInputGroupPrepend,
-  CDropdown,
-  CInputGroupText,
   CLabel,
   CSelect,
-  CRow,
-  CSwitch,
 } from "@coreui/react";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import props from "prop-types";
-
-import React, { useState, Component, useEffect } from "react";
-import { DocsLink } from "src/reusable";
-import {
-  TopsisData,
-  Normalisasi,
-  NormalisasiBobot,
-  Ideal,
-  JarakAlternatif,
-} from "../users/TopsisData";
-
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import usersData from "../users/TopsisData";
 
 const Alternatif = (props) => {
   const { buttonLabel, className } = props;
