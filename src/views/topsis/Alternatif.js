@@ -28,13 +28,13 @@ import {
   CLabel,
   CSelect,
   CRow,
-  CSwitch
+  CSwitch,
 } from "@coreui/react";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import props from "prop-types";
 
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import { DocsLink } from "src/reusable";
 import {
   TopsisData,
@@ -44,18 +44,57 @@ import {
   JarakAlternatif,
 } from "../users/TopsisData";
 
+import axios from "axios";
 import usersData from "../users/TopsisData";
 
 const Alternatif = (props) => {
   const { buttonLabel, className } = props;
 
   const [modal, setModal] = useState(false);
+  const [list, setDataAlter] = useState([]);
+  const [array, setNewAlter] = useState({
+    alternatif: null,
+    kriteria_air: null,
+    kriteria_kotoran: null,
+    kriteria_serangga: "Tidak Ada",
+    kriteria_bau: "Tidak Berbau",
+  });
 
   const toggle = () => setModal(!modal);
 
-  const fields = ["Alternatif", "C1", "C2", "C3", "C4"];
-  const ideal = ["C1", "C2", "C3", "C4"];
-  const jarak = ["Alternatif", "Jarak"];
+  const handleChange = (value, name) => {
+    if (name === "kriteria_air" || name === "kriteria_kotoran") {
+      value = value / 100;
+    } else {
+      console.log(value);
+    }
+    setNewAlter({ ...array, [name]: value });
+  };
+
+  const addAlter = (array) => {
+    axios.post(`http://localhost:1998/api/alternatif/`, array).then((res) => {
+      toggle();
+    });
+  };
+
+  useEffect(() => {
+    checkData();
+  }, [list]);
+
+  const checkData = async () => {
+    axios.get(`http://localhost:1998/api/alternatif/`).then((res) => {
+      let alt = res.data.result;
+      setDataAlter(alt);
+    });
+  };
+
+  const fields = [
+    "alternatif",
+    "kriteria_air",
+    "kriteria_kotoran",
+    "kriteria_serangga",
+    "kriteria_bau",
+  ];
 
   return (
     <div className="animated fadeIn">
@@ -79,9 +118,14 @@ const Alternatif = (props) => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput
+                      type="text"
                       id="text-input"
                       name="text-input"
                       placeholder="Masukkan Nama Alternatif"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "alternatif")
+                      }
+                      defaultValue={props.alternatif}
                     />
                     {/* <CFormText>This is a help text</CFormText> */}
                   </CCol>
@@ -95,8 +139,16 @@ const Alternatif = (props) => {
                       id="text-input"
                       name="text-input"
                       placeholder="Masukkan Jumlah Kadar Air"
+                      type="text"
+                      pattern="[0-9]*"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "kriteria_air")
+                      }
+                      defaultValue={props.kriteria_air}
                     />
-                    <CFormText>(Kadar Air untuk biji kopi biasanya antara 12,55% - 14%)</CFormText>
+                    <CFormText>
+                      (Kadar Air untuk biji kopi biasanya antara 12,55% - 14%)
+                    </CFormText>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -108,6 +160,12 @@ const Alternatif = (props) => {
                       id="text-input"
                       name="text-input"
                       placeholder="Masukkan Jumlah Kadar Kotoran"
+                      type="text"
+                      pattern="[0-9]*"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "kriteria_kotoran")
+                      }
+                      defaultValue={props.kriteria_kotoran}
                     />
                     <CFormText>(Kadar Kotoran antara 1% - 15%)</CFormText>
                   </CCol>
@@ -117,10 +175,18 @@ const Alternatif = (props) => {
                     <CLabel htmlFor="select">Aroma Busuk</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CSelect custom name="select" id="select">
-                      <option value="0">Tidak Berbau</option>
-                      <option value="1">Agak Berbau</option>
-                      <option value="2">Sangat Berbau</option>
+                    <CSelect
+                      custom
+                      name="select"
+                      id="select"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "kriteria_bau")
+                      }
+                      defaultValue={props.kriteria_bau}
+                    >
+                      <option value="Tidak Berbau">Tidak Berbau</option>
+                      <option value="Agak Berbau">Agak Berbau</option>
+                      <option value="Berbau">Berbau</option>
                     </CSelect>
                   </CCol>
                 </CFormGroup>
@@ -129,17 +195,25 @@ const Alternatif = (props) => {
                     <CLabel htmlFor="select">Serangga Hidup</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CSelect custom name="select" id="select">
-                      <option value="0">Banyak</option>
-                      <option value="1">Sedikit</option>
-                      <option value="2">Tidak Ada</option>
+                    <CSelect
+                      custom
+                      name="select"
+                      id="select"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "kriteria_serangga")
+                      }
+                      defaultValue={props.kriteria_serangga}
+                    >
+                      <option value="Tidak Ada">Tidak Ada</option>
+                      <option value="Sedikit">Sedikit</option>S
+                      <option value="Banyak">Banyak</option>
                     </CSelect>
                   </CCol>
                 </CFormGroup>
               </CForm>
             </ModalBody>
             <ModalFooter>
-              <Button color="success" onClick={toggle}>
+              <Button color="success" onClick={() => addAlter(array)}>
                 Simpan
               </Button>{" "}
               <Button color="danger" onClick={toggle}>
@@ -156,7 +230,7 @@ const Alternatif = (props) => {
           {/* <DocsLink name="CModal"/> */}
         </CCardHeader>
         <CCardBody>
-          <CDataTable items={TopsisData} fields={fields} pagination />
+          <CDataTable items={list} fields={fields} pagination />
         </CCardBody>
       </CCard>
     </div>
