@@ -43,7 +43,7 @@ const Alternatif = React.lazy(() => import('./views/topsis/Alternatif'));
 const HasilAkhir = React.lazy(() => import('./views/topsis/HasilAkhir'));
 const HitungTopsis = React.lazy(() => import('./views/topsis/HitungTopsis'));
 const HitungMoora = React.lazy(() => import('./views/topsis/HitungMoora'));
-
+// const Login = React.lazy(() => import('./views/topsis/Login'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home',component: dashboardTopsis },
@@ -57,6 +57,7 @@ const routes = [
   { path: '/perhitungan', name: 'Perhitungan', component: HitungTopsis, exact: true },
   { path: '/perhitungan/topsis', name: 'Topsis', component: HitungTopsis, exact: true },
   { path: '/perhitungan/moora', name: 'Moora', component: HitungMoora, exact: true },
+  // { path: '/home/login', name: 'Login', component: Login, exact: true },
 
   { path: '/theme', name: 'Theme', component: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', component: Colors },

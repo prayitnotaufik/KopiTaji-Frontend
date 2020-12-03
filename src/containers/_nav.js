@@ -48,6 +48,12 @@ export default [
     to: "/home/HasilAkhir",
     icon: "cil-chart-pie",
   },
+  // {
+  //   _tag: "CSidebarNavItem",
+  //   name: "Login",
+  //   to: "/home/Login",
+  //   icon: "cil-chart-pie",
+  // },
   
   // {
   //   _tag: 'CSidebarNavTitle',

@@ -1,32 +1,35 @@
-import React from 'react'
+import React from "react";
+import { Link } from 'react-router-dom'
 import {
   CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  CImg,
+  CButton,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
 
 const TheHeaderDropdown = () => {
   return (
-    <CDropdown
-      inNav
-      className="c-header-nav-items mx-2"
-      direction="down"
-    >
+    <CDropdown inNav className="c-header-nav-items mx-2" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar mr-2">
           <CImg
-            src={'avatars/9.jpg'}
+            src={"avatars/9.jpg"}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
-        
         </div>
+
         <div>
-          <h5>Admin Ashiap</h5>
+          <Link to="/login">
+           
+            <h5>Login</h5>
+            
+          </Link>
+          {/* <h5>Login</h5> */}
         </div>
       </CDropdownToggle>
       {/* <CDropdownMenu className="pt-0" placement="bottom-end">
@@ -90,7 +93,7 @@ const TheHeaderDropdown = () => {
         </CDropdownItem>
       </CDropdownMenu> */}
     </CDropdown>
-  )
-}
+  );
+};
 
-export default TheHeaderDropdown
+export default TheHeaderDropdown;
