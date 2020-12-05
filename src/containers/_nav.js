@@ -1,6 +1,3 @@
-import React from "react";
-import CIcon from "@coreui/icons-react";
-
 export default [
   // {
   //   _tag: 'CSidebarNavTitle',
@@ -27,18 +24,18 @@ export default [
   {
     _tag: "CSidebarNavDropdown",
     name: "Perhitungan",
-    route: "/perhitungan",
+    route: "/home/perhitungan",
     icon: "cil-puzzle",
     _children: [
       {
         _tag: "CSidebarNavItem",
         name: "Topsis",
-        to: "/perhitungan/topsis",
+        to: "/home/perhitungan/topsis",
       },
       {
         _tag: "CSidebarNavItem",
         name: "Moora",
-        to: "/perhitungan/moora",
+        to: "/home/perhitungan/moora",
       },
     ],
   },
@@ -54,7 +51,7 @@ export default [
   //   to: "/home/Login",
   //   icon: "cil-chart-pie",
   // },
-  
+
   // {
   //   _tag: 'CSidebarNavTitle',
   //   _children: ['Bikin Kemaren'],

@@ -1,4 +1,4 @@
-import { CCard, CCardBody, CRow, CCol,CCardHeader, CIcon } from "@coreui/react";
+import { CCard, CCardBody, CRow, CCol } from "@coreui/react";
 import React, { Component } from "react";
 
 export default class kriteria extends Component {

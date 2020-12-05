@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
 import {
   CButton,
   CCard,
   CCardBody,
-  CCardFooter,
   CCol,
   CContainer,
   CForm,
@@ -11,12 +10,45 @@ import {
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
-  CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  CRow,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
+import { Redirect, useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  return (
+  const history = useHistory();
+  const [token, setToken] = useState({
+    token: null,
+  });
+  const [admin, setAdmin] = useState({
+    username: null,
+    password: null,
+  });
+
+  const handleChange = (value, name) => {
+    setAdmin({ ...admin, [name]: value });
+  };
+
+  const validation = (array) => {
+    axios.post(`http://localhost:1998/api/user/login`, array).then((res) => {
+      let usr = res.data;
+      setToken(usr);
+    });
+  };
+
+  const tokenLocal = () => {
+    if (token.token !== null) {
+      localStorage.setItem("user", token.token);
+      history.goBack();
+    }
+  };
+
+  useEffect(() => {
+    tokenLocal();
+  }, [token]);
+
+  return localStorage.getItem("user") === null ? (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
@@ -31,7 +63,14 @@ const Login = () => {
                         <CIcon name="cil-user" />
                       </CInputGroupText>
                     </CInputGroupPrepend>
-                    <CInput type="text" placeholder="Username" autoComplete="username" />
+                    <CInput
+                      type="text"
+                      placeholder="Username"
+                      autoComplete="username"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "username")
+                      }
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
@@ -39,9 +78,22 @@ const Login = () => {
                         <CIcon name="cil-lock-locked" />
                       </CInputGroupText>
                     </CInputGroupPrepend>
-                    <CInput type="password" placeholder="Password" autoComplete="new-password" />
+                    <CInput
+                      type="password"
+                      placeholder="Password"
+                      autoComplete="new-password"
+                      onChange={(event) =>
+                        handleChange(event.target.value, "password")
+                      }
+                    />
                   </CInputGroup>
-                  <CButton color="success" block>Login</CButton>
+                  <CButton
+                    color="success"
+                    onClick={() => validation(admin)}
+                    block
+                  >
+                    Login
+                  </CButton>
                 </CForm>
               </CCardBody>
             </CCard>
@@ -49,7 +101,9 @@ const Login = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  ) : (
+    <Redirect to="/home" />
+  );
+};
 
-export default Login
+export default Login;

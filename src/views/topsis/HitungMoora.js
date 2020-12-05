@@ -14,7 +14,7 @@ const HitungMoora = (props) => {
     checkData();
   }, [alter]);
 
-  const checkData = async () => {
+  const checkData = () => {
     axios.get(`http://localhost:1998/api/moora/`).then((res) => {
       let data = res.data;
       let newdata = Object.keys(data).forEach((d) => {
@@ -64,7 +64,7 @@ const HitungMoora = (props) => {
     });
   };
 
-  const getAlterName = async () => {
+  const getAlterName = () => {
     axios.get(`http://localhost:1998/api/alternatif/`).then((res) => {
       let alt = res.data.result;
       setAlterName(alt);

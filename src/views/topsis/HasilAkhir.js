@@ -1,6 +1,5 @@
 import { CCard, CCardBody, CCardHeader, CDataTable } from "@coreui/react";
 import React, { Component } from "react";
-import { hasilAkhir } from "../users/TopsisData";
 import axios from "axios";
 
 const fields = ["rank", "alternatif", "value"];

@@ -17,7 +17,7 @@ const HitungTopsis = (props) => {
     checkData();
   }, [alter]);
 
-  const checkData = async () => {
+  const checkData = () => {
     axios.get(`http://localhost:1998/api/topsis/`).then((res) => {
       let data = res.data;
       let newdata = Object.keys(data).forEach((d) => {
@@ -82,7 +82,7 @@ const HitungTopsis = (props) => {
     });
   };
 
-  const getAlterName = async () => {
+  const getAlterName = () => {
     axios.get(`http://localhost:1998/api/alternatif/`).then((res) => {
       let alt = res.data.result;
       setAlterName(alt);
