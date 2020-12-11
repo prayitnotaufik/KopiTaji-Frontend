@@ -40,7 +40,7 @@ const Login = () => {
   const tokenLocal = () => {
     if (token.token !== null) {
       localStorage.setItem("user", token.token);
-      history.goBack();
+      window.location.reload(false);
     }
   };
 

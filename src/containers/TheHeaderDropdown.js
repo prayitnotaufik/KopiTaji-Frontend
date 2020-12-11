@@ -1,14 +1,11 @@
 import React from "react";
 import { Button } from "reactstrap";
 import { CDropdown, CDropdownToggle, CImg } from "@coreui/react";
-import { useHistory } from "react-router-dom";
 
 const TheHeaderDropdown = () => {
-  const history = useHistory();
-
   const LogoutHandle = () => {
     localStorage.removeItem("user");
-    history.goBack();
+    window.location.reload(false);
   };
 
   return (
